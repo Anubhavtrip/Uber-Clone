@@ -11,7 +11,11 @@ const cookieParser = require("cookie-parser")
 
 connectToDb();
 
+//this is use for when you development then accept all website request. if you want setup that only specific domain accept the request then pass on it  
+
 app.use(cors());
+
+//
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
