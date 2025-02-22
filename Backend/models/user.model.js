@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     fullname:{
         firstname:{
             type:String,
-            required:true,
+            required:true, 
             minlength:[3,'First name must be at least 3 characters long'],
         },
         lastname:{
@@ -39,11 +39,12 @@ userSchema.methods.genrateAuthToken = function(){
     const token = jsonwebtoken.sign({_id:this._id},process.env.JWT_SECRET,{expiresIn:'24h'});
     return token
 }
-
+//specific 
 userSchema.methods.comparePassword = async function (password){
     return await bcrypt.compare(password,this.password)
 }
 
+// statics are model-level methods that work with the entire collection or are related to actions on the model itself, not on individual instances.
 
 userSchema.statics.hashPassword = async function (password){
     return await bcrypt.hash(password,10)

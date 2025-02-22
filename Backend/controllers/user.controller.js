@@ -14,7 +14,15 @@ module.exports.registerUser = async(req,res,next)=>{
    }
 
    const {fullname,email,password} = req.body;
-   console.log(req.body);
+
+   //check that email exist or not
+
+   const userExist  =  await userModel.findOne({email});
+
+   if(userExist){
+        return res.status(400).json({msg:"user mail alredy exist try other mail id"})
+   }
+//    console.log(req.body);
    
    const hashedPassword = await userModel.hashPassword(password);
    console.log(hashedPassword,"hashedPassword");
@@ -26,6 +34,9 @@ module.exports.registerUser = async(req,res,next)=>{
     email,
     password:hashedPassword
    });
+
+   console.log(user,"line 30");
+   
 
    const token= user.genrateAuthToken();
 
@@ -72,7 +83,7 @@ module.exports.loginUser = async(req,res,next)=>{
 
     // send cookie for fetch profile details using cookie
 
-    res.cookie('token',token);
+    res.cookies('token',token)
 
     //send the status code 
 

@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 const connectToDb = require('./db/db');
 const userRoutes = require("./routes/user.routes");
+const captainRoutess = require("./routes/captain.routes")
+//for authrization
 const cookieParser = require("cookie-parser")
 
 
@@ -23,6 +25,7 @@ app.use(cookieParser())
 //initiialize routes
 
 app.use('/users',userRoutes);
+app.use('/captain',captainRoutess);
 
 
 
