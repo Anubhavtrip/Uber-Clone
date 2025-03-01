@@ -83,7 +83,7 @@ module.exports.loginUser = async(req,res,next)=>{
 
     // send cookie for fetch profile details using cookie
 
-    res.cookies('token',token)
+    res.cookie('token',token)
 
     //send the status code 
 
@@ -103,7 +103,7 @@ module.exports.getUserProfile = async(req,res,next)=>{
 
 module.exports.logoutUser = async(req,res,next)=>{
     try {
-        console.log(req.body, "line 94");
+        // console.log(req.body, "line 94");
         res.clearCookie('token');
 
         const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
@@ -111,7 +111,7 @@ module.exports.logoutUser = async(req,res,next)=>{
             return res.status(400).json({ message: "No token provided" });
         }
 
-        console.log(token,"Line 103");
+        // console.log(token,"Line 103");
 
         await backlistToken.create({ token });
         res.status(200).json({ message: "User logged out successfully" });
